@@ -1,0 +1,11 @@
+export const POST_DTO_CONSTRAINTS = {
+ TITLE: {
+  MIN_LENGTH: 5,
+  MAX_LENGTH: 100,
+ },
+
+ SHORT_DESCRIPTION: {
+  MIN_LENGTH: 30,
+  MAX_LENGTH: 300,
+ },
+};
