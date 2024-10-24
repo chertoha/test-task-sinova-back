@@ -9,3 +9,9 @@ export const POST_DTO_CONSTRAINTS = {
   MAX_LENGTH: 300,
  },
 };
+
+export const IMAGE_MAX_SIZE = 5 * 1024 * 1024;
+export const IMAGE_ALLOWED_MIME_TYPES = /(image\/jpeg|image\/png)/;
+
+export const PUBLIC_FOLDER_NAME = "public";
+export const UPLOADS_FOLDER_NAME = "uploads";
