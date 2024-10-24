@@ -19,5 +19,3 @@ import { PUBLIC_FOLDER_NAME } from "./utils/constants";
  providers: [],
 })
 export class AppModule {}
-
-// 1729772225116_376002679_history-1-content-5.jpg
