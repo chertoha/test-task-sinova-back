@@ -12,6 +12,6 @@ export class FilesService {
   const newPath = join(publicFolder, UPLOADS_FOLDER_NAME, filename);
   await fs.rename(oldPath, newPath);
 
-  return { src: join(UPLOADS_FOLDER_NAME, filename) };
+  return { src: filename };
  }
 }
