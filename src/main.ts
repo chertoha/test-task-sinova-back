@@ -3,11 +3,15 @@ import { AppModule } from "./app.module";
 import { SwaggerModule, DocumentBuilder } from "@nestjs/swagger";
 import { ValidationPipe } from "@nestjs/common";
 import { MongoExceptionFilter } from "./filters/mongo-exception.filter";
+import { join } from "path";
+import { NestExpressApplication } from "@nestjs/platform-express";
+import { PUBLIC_FOLDER_NAME } from "./utils/constants";
 
 async function bootstrap() {
- const app = await NestFactory.create(AppModule);
+ const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
  app.enableCors();
+ app.useStaticAssets(join(__dirname, "..", PUBLIC_FOLDER_NAME));
  app.setGlobalPrefix("api");
 
  const config = new DocumentBuilder()

@@ -11,7 +11,6 @@ import { PUBLIC_FOLDER_NAME } from "./utils/constants";
  imports: [
   ConfigModule.forRoot({ isGlobal: true }),
   MongooseModule.forRoot(process.env.DB_HOST),
-  ServeStaticModule.forRoot({ rootPath: join(__dirname, "..", PUBLIC_FOLDER_NAME) }),
   PostsModule,
   FilesModule,
  ],
