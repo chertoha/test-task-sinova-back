@@ -6,6 +6,7 @@ import { MongoExceptionFilter } from "./filters/mongo-exception.filter";
 import { join } from "path";
 import { NestExpressApplication } from "@nestjs/platform-express";
 import { PUBLIC_FOLDER_NAME } from "./utils/constants";
+import { NextFunction } from "express";
 
 async function bootstrap() {
  const app = await NestFactory.create<NestExpressApplication>(AppModule);
