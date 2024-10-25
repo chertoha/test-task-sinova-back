@@ -36,4 +36,4 @@ $ npm run start:prod
 
 ## OpenAPI docs
 
-Open [http://localhost:PORT/api](http://localhost:PORT/api) with your browser to see the result.
+Open [http://localhost:<PORT>/api](http://localhost:PORT/api) with your browser to see the result.
