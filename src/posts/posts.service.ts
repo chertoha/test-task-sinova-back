@@ -3,9 +3,10 @@ import { CreatePostDto } from "./dto/create-post.dto";
 import { UpdatePostDto } from "./dto/update-post.dto";
 import { InjectModel } from "@nestjs/mongoose";
 import { Post } from "./schemas/post.schema";
-import { Model, ProjectionType, QueryOptions, RootFilterQuery } from "mongoose";
+import { Model, ProjectionType, QueryOptions, RootFilterQuery, isValidObjectId } from "mongoose";
 import { GetPostsQueryDto } from "./dto/get-posts-query.dto";
 import { PageableDto } from "src/common/dto/pageable.dto";
+import { DeleteBatchPostsDto } from "./dto/delete-batch-posts.dto";
 
 @Injectable()
 export class PostsService {
@@ -61,5 +62,23 @@ export class PostsService {
    throw new HttpException(`Post with ID=${id} not found`, HttpStatus.NOT_FOUND);
   }
   return post;
+ }
+
+ async removeBatch(deleteBatchPostsDto: DeleteBatchPostsDto) {
+  const { ids } = deleteBatchPostsDto;
+
+  const hasObjectIds = ids.some(id => isValidObjectId(id));
+  if (!hasObjectIds) {
+   throw new HttpException("Your batch has wrong format ID", HttpStatus.BAD_REQUEST);
+  }
+
+  const posts = await this.postModel.find({ _id: { $in: ids } });
+  if (posts.length !== ids.length) {
+   throw new HttpException("There are no one ore more posts with these IDs", HttpStatus.NOT_FOUND);
+  }
+
+  await this.postModel.deleteMany({ _id: { $in: ids } });
+
+  return { ids };
  }
 }
