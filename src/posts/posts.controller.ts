@@ -8,6 +8,7 @@ import { GetPostsQueryDto } from "./dto/get-posts-query.dto";
 import { PageableDto } from "src/common/dto/pageable.dto";
 import { Post as PostModel } from "./schemas/post.schema";
 import { MongoIdValidationPipe } from "src/pipes/mongo-id-validation.pipe";
+import { EmptyBodyValidationPipe } from "src/pipes/empty-body-validation.pipe";
 
 @Controller("posts")
 @ApiTags("Posts")
@@ -49,8 +50,10 @@ export class PostsController {
  @ApiResponse({ status: 404, description: "Not found" })
  async update(
   @Param("id", new MongoIdValidationPipe()) id: string,
-  @Body() updatePostDto: UpdatePostDto,
+  @Body(new EmptyBodyValidationPipe()) updatePostDto: UpdatePostDto,
  ): Promise<PostResponseDto> {
+  console.log("updatePostDto", updatePostDto);
+
   return await this.postsService.update(id, updatePostDto);
  }
 
