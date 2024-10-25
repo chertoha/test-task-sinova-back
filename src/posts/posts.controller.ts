@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from "@nestjs/common";
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, HttpCode } from "@nestjs/common";
 import { PostsService } from "./posts.service";
 import { CreatePostDto } from "./dto/create-post.dto";
 import { UpdatePostDto } from "./dto/update-post.dto";
@@ -9,6 +9,7 @@ import { PageableDto } from "src/common/dto/pageable.dto";
 import { Post as PostModel } from "./schemas/post.schema";
 import { MongoIdValidationPipe } from "src/pipes/mongo-id-validation.pipe";
 import { EmptyBodyValidationPipe } from "src/pipes/empty-body-validation.pipe";
+import { DeleteBatchPostsDto } from "./dto/delete-batch-posts.dto";
 
 @Controller("posts")
 @ApiTags("Posts")
@@ -64,5 +65,15 @@ export class PostsController {
  @ApiResponse({ status: 404, description: "Not found" })
  async remove(@Param("id", new MongoIdValidationPipe()) id: string): Promise<PostResponseDto> {
   return await this.postsService.remove(id);
+ }
+
+ @Post("delete-batch")
+ @HttpCode(200)
+ @ApiOperation({ summary: "Delete posts by id list" })
+ @ApiResponse({ status: 200, type: DeleteBatchPostsDto })
+ @ApiResponse({ status: 400, description: "Bad request (wrong ID format) " })
+ @ApiResponse({ status: 404, description: "Not found" })
+ async removeBatch(@Body() deleteBatchPostsDto: DeleteBatchPostsDto) {
+  return await this.postsService.removeBatch(deleteBatchPostsDto);
  }
 }

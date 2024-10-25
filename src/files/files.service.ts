@@ -10,6 +10,7 @@ export class FilesService {
  async saveImage(file: Express.Multer.File) {
   const { path: oldPath, filename } = file;
   const newPath = join(publicFolder, UPLOADS_FOLDER_NAME, filename);
+
   await fs.rename(oldPath, newPath);
 
   return { src: filename };
