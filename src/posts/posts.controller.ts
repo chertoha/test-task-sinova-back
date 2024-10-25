@@ -59,8 +59,8 @@ export class PostsController {
 
  @Delete(":id")
  @ApiOperation({ summary: "Delete post by ID" })
- @ApiResponse({ status: 400, description: "Bad request (wrong ID format) " })
  @ApiResponse({ status: 200, type: PostResponseDto })
+ @ApiResponse({ status: 400, description: "Bad request (wrong ID format) " })
  @ApiResponse({ status: 404, description: "Not found" })
  async remove(@Param("id", new MongoIdValidationPipe()) id: string): Promise<PostResponseDto> {
   return await this.postsService.remove(id);
