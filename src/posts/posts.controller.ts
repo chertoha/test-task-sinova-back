@@ -53,8 +53,6 @@ export class PostsController {
   @Param("id", new MongoIdValidationPipe()) id: string,
   @Body(new EmptyBodyValidationPipe()) updatePostDto: UpdatePostDto,
  ): Promise<PostResponseDto> {
-  console.log("updatePostDto", updatePostDto);
-
   return await this.postsService.update(id, updatePostDto);
  }
 

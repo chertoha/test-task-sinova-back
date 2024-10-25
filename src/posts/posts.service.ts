@@ -18,7 +18,6 @@ export class PostsService {
  }
 
  async findAll(queryDto: GetPostsQueryDto) {
-  console.log(queryDto);
   const { skip, limit } = queryDto;
 
   const filter: RootFilterQuery<Post> = {};
